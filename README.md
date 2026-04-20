@@ -1,4 +1,4 @@
-# Kestrel Data
+# [Kestrel Data](https://robert-z-lehr.github.io/Kestrel-Data/)
 
 This repository is set up to support a GitHub Pages map of Kestrel heat-stress sessions.
 
