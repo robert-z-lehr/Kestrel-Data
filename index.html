@@ -34,15 +34,27 @@
     const map = L.map('map').setView([30.286, -97.737], 15);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-    fetch('data/sessions.geojson')
+    fetch('Data/web/sessions.geojson')
       .then(r => r.json())
       .then(data => {
         L.geoJSON(data, {
-          pointToLayer: (f, latlng) => L.circleMarker(latlng, {radius:8}),
+          pointToLayer: (f, latlng) => L.circleMarker(latlng, {
+            radius: 9,
+            color: '#08306b',
+            weight: 2,
+            fillColor: '#2171b5',
+            fillOpacity: 0.9
+          }),
           onEachFeature: (f, layer) => {
             const p = f.properties;
             layer.bindPopup(
-              `<b>${p.file_name}</b><br>WBGT mean: ${p['Wet Bulb Globe Temperature__mean']}`
+              `<b>${p.file_name}</b><br>` +
+              `WBGT mean: ${Number(p['Wet Bulb Globe Temperature__mean']).toFixed(2)}<br>` +
+              `Globe Temp mean: ${Number(p['Globe Temperature__mean']).toFixed(2)}<br>` +
+              `Air Temp mean: ${Number(p['Temperature__mean']).toFixed(2)}<br>` +
+              `RH mean: ${Number(p['Relative Humidity__mean']).toFixed(2)}<br>` +
+              `Wind Speed mean: ${Number(p['Wind Speed__mean']).toFixed(2)}<br>` +
+              `N points: ${p['n_points']}`
             );
           }
         }).addTo(map);
@@ -51,3 +63,4 @@
 </body>
 </html>
 ""
+
